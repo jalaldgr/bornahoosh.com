@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-  },
+  output: 'standalone',
   images: {
     domains: ['localhost', 'example.com'], // دامنه‌هایی که تصویر از آن‌ها لود می‌شود
   },

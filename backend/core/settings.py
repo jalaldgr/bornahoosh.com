@@ -69,11 +69,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='borna_hoosh'),
-        'USER': config('DB_USER', default='postgres'),
-        'PASSWORD': config('DB_PASSWORD', default='postgres'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
+        'NAME': os.environ.get('POSTGRES_DB', 'bornahoosh_db'),
+        'USER': os.environ.get('POSTGRES_USER', 'bornahoosh_user'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST', 'postgres'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
 
@@ -94,7 +94,6 @@ USE_TZ = True
 # Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Media files
 MEDIA_URL = '/media/'
@@ -143,7 +142,11 @@ CORS_ALLOWED_ORIGINS = [
     config('FRONTEND_URL', default='http://localhost:3000'),
 ]
 CORS_ALLOW_CREDENTIALS = True
-
+# CSRF
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    'CSRF_TRUSTED_ORIGINS',
+    'http://localhost:3000,http://127.0.0.1:3000'
+).split(',')
 # ============= Admin Config =============
 # Django Admin RTL Support
 ADMIN_SITE_HEADER = 'مدیریت برنا هوش'

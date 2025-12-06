@@ -27,10 +27,13 @@ RUN pip install --upgrade pip && \
 # کپی کد پروژه
 COPY . .
 
-# ساخت دایرکتوری‌های مورد نیاز
-RUN mkdir -p /app/staticfiles /app/media
+# ساخت دایرکتوری‌های مورد نیاز (ثابت و مهم)
+RUN mkdir -p \
+    /app/staticfiles \
+    /app/media \
+    /app/templates
 
-# جمع‌آوری static files
+# انجام collectstatic قبل از تغییر کاربر
 RUN python manage.py collectstatic --noinput || echo "Static files collection skipped"
 
 # ساخت non-root user

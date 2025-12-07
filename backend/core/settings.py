@@ -18,13 +18,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Third-party apps
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
     'djoser',
-    
+
     # Local apps
     'users.apps.UsersConfig',
     'services.apps.ServicesConfig',
@@ -136,17 +136,9 @@ SIMPLE_JWT = {
 }
 
 # ============= CORS Config =============
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    config('FRONTEND_URL', default='http://localhost:3000'),
-]
-CORS_ALLOW_CREDENTIALS = True
-# CSRF
-CSRF_TRUSTED_ORIGINS = os.environ.get(
-    'CSRF_TRUSTED_ORIGINS',
-    'http://localhost:3000,http://127.0.0.1:3000'
-).split(',')
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", default="").split(",")
+
+CSRF_TRUSTED_ORIGINS = config("CSRF_TRUSTED_ORIGINS", default="").split(",")
 # ============= Admin Config =============
 # Django Admin RTL Support
 ADMIN_SITE_HEADER = 'مدیریت برنا هوش'
